@@ -3,6 +3,8 @@ package aplicacao;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import model.Jogo;
+
 public class Menu {
 
 	static Scanner sc = new Scanner(System.in);
@@ -10,6 +12,10 @@ public class Menu {
 	public static void main(String[] args) {
 
 		int opcao;
+		
+		// Testando o objeto
+		Jogo jogo1 = new Jogo(1, "God of War Ragnarok", 2, 299.90f, "PlayStation 5");
+		jogo1.visualizar();
 
 		while (true) {
 
