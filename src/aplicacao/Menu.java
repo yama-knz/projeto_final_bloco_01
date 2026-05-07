@@ -13,17 +13,8 @@ public class Menu {
 	public static void main(String[] args) {
 
 		int opcao;
-		
-		// Testando o objeto
+
 		ProdutoController produtos = new ProdutoController();
-
-		Jogo jogo1 = new Jogo(produtos.gerarId(), "God of War Ragnarok", 2, 299.90f, "PlayStation 5");
-		Jogo jogo2 = new Jogo(produtos.gerarId(), "The Last of Us", 2, 249.90f, "PlayStation 5");
-
-		produtos.cadastrar(jogo1);
-		produtos.cadastrar(jogo2);
-
-		produtos.listarTodos();
 
 		while (true) {
 
@@ -53,27 +44,27 @@ public class Menu {
 				switch (opcao) {
 
 				case 1:
-					System.out.println("\nCadastrar Produto\n");
+					cadastrarProduto(produtos);
 					keyPress();
 					break;
 
 				case 2:
-					System.out.println("\nListar Produtos\n");
+					listarProdutos(produtos);
 					keyPress();
 					break;
 
 				case 3:
-					System.out.println("\nBuscar Produto por ID\n");
+					buscarProdutoPorId(produtos);
 					keyPress();
 					break;
 
 				case 4:
-					System.out.println("\nAtualizar Produto\n");
+					atualizarProduto(produtos);
 					keyPress();
 					break;
 
 				case 5:
-					System.out.println("\nApagar Produto\n");
+					apagarProduto(produtos);
 					keyPress();
 					break;
 
@@ -81,7 +72,6 @@ public class Menu {
 					sobre();
 					System.out.println("\nLoja de Games - O seu universo gamer começa aqui!");
 					sc.close();
-					System.exit(0);
 					return;
 
 				default:
@@ -126,6 +116,108 @@ public class Menu {
 		for (int i = 0; i < 50; i++) {
 			System.out.println();
 		}
+
+	}
+
+	public static void cadastrarProduto(ProdutoController produtos) {
+
+		String nome, plataforma;
+		int tipo;
+		float preco;
+
+		System.out.println("\nCadastrar Produto\n");
+
+		System.out.print("Nome do Produto: ");
+		nome = sc.nextLine();
+
+		System.out.print("Tipo do Produto (1-Console | 2-Jogo): ");
+		tipo = sc.nextInt();
+		sc.nextLine();
+
+		System.out.print("Preço do Produto: ");
+		preco = sc.nextFloat();
+		sc.nextLine();
+
+		System.out.print("Plataforma: ");
+		plataforma = sc.nextLine();
+
+		produtos.cadastrar(
+				new Jogo(produtos.gerarId(), nome, tipo, preco, plataforma));
+
+	}
+
+	public static void listarProdutos(ProdutoController produtos) {
+
+		System.out.println("\nListar Produtos\n");
+
+		produtos.listarTodos();
+
+	}
+
+	public static void buscarProdutoPorId(ProdutoController produtos) {
+
+		int id;
+
+		System.out.println("\nBuscar Produto por ID\n");
+
+		System.out.print("Digite o ID do Produto: ");
+		id = sc.nextInt();
+		sc.nextLine();
+
+		produtos.procurarPorId(id);
+
+	}
+
+	public static void atualizarProduto(ProdutoController produtos) {
+
+		String nome, plataforma;
+		int id, tipo;
+		float preco;
+
+		System.out.println("\nAtualizar Produto\n");
+
+		System.out.print("Digite o ID do Produto: ");
+		id = sc.nextInt();
+		sc.nextLine();
+
+		var buscaProduto = produtos.buscarNaCollection(id);
+
+		if (buscaProduto != null) {
+
+			System.out.print("Novo Nome do Produto: ");
+			nome = sc.nextLine();
+
+			System.out.print("Novo Tipo do Produto (1-Console | 2-Jogo): ");
+			tipo = sc.nextInt();
+			sc.nextLine();
+
+			System.out.print("Novo Preço do Produto: ");
+			preco = sc.nextFloat();
+			sc.nextLine();
+
+			System.out.print("Nova Plataforma: ");
+			plataforma = sc.nextLine();
+
+			produtos.atualizar(
+					new Jogo(id, nome, tipo, preco, plataforma));
+
+		} else {
+			System.out.println("\nProduto não encontrado!");
+		}
+
+	}
+
+	public static void apagarProduto(ProdutoController produtos) {
+
+		int id;
+
+		System.out.println("\nApagar Produto\n");
+
+		System.out.print("Digite o ID do Produto: ");
+		id = sc.nextInt();
+		sc.nextLine();
+
+		produtos.deletar(id);
 
 	}
 
