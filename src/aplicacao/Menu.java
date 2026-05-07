@@ -3,6 +3,7 @@ package aplicacao;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import controller.ProdutoController;
 import model.Jogo;
 
 public class Menu {
@@ -14,8 +15,15 @@ public class Menu {
 		int opcao;
 		
 		// Testando o objeto
-		Jogo jogo1 = new Jogo(1, "God of War Ragnarok", 2, 299.90f, "PlayStation 5");
-		jogo1.visualizar();
+		ProdutoController produtos = new ProdutoController();
+
+		Jogo jogo1 = new Jogo(produtos.gerarId(), "God of War Ragnarok", 2, 299.90f, "PlayStation 5");
+		Jogo jogo2 = new Jogo(produtos.gerarId(), "The Last of Us", 2, 249.90f, "PlayStation 5");
+
+		produtos.cadastrar(jogo1);
+		produtos.cadastrar(jogo2);
+
+		produtos.listarTodos();
 
 		while (true) {
 
